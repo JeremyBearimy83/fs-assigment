@@ -12,19 +12,6 @@ def makeObjectIDString(obj):
     return obj
 
 
-def _corsify_actual_response(response):
-    response.headers.add("Access-Control-Allow-Origin", "*")
-    return response
-
-
-def _build_cors_preflight_response():
-    response = make_response()
-    response.headers.add("Access-Control-Allow-Origin", "*")
-    response.headers.add("Access-Control-Allow-Headers", "*")
-    response.headers.add("Access-Control-Allow-Methods", "*")
-    return response
-
-
 def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
     CORS(app)
@@ -56,8 +43,6 @@ def create_app(test_config=None):
 
     @app.route('/getFriends/<skip>', methods=['GET', 'OPTIONS'])
     def getFriends(skip):
-        if request.method == "OPTIONS":  # CORS preflight
-            return _build_cors_preflight_response()
 
         parsed_skip = int(skip)
 
@@ -81,7 +66,7 @@ def create_app(test_config=None):
         response["prev_url"] = "" if parsed_skip < 4 else f"/getFriends/{parsed_skip-4}"
         response["next_url"] = "" if no_of_friends < 4 else f"/getFriends/{parsed_skip+4}"
 
-        return _corsify_actual_response(jsonify(response))
+        return jsonify(response)
 
     @app.route("/getSorted/<skip>",  methods=['GET'])
     def getSortedFriends(skip):
