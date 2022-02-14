@@ -8,6 +8,7 @@ const FriendsFragment = ({ friends, handleDelete, toggleLike }) => {
           friend={friend}
           handleDelete={handleDelete}
           toggleLike={toggleLike}
+          key={friend.id}
         />
       ))}
     </div>

@@ -9,7 +9,6 @@ import "./App.css";
 
 function App() {
   const {
-    getFriends,
     getSearch,
     addFriend,
     urls,
