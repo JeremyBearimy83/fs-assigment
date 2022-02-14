@@ -21,10 +21,6 @@ function App() {
     toggleLike,
   } = useFriends();
 
-  useEffect(() => {
-    getFriends();
-  }, [urls.currentUrl]);
-
   return (
     <div className="pt-5 mx-auto col-12 col-md-4 px-2">
       <HeaderSection handleSort={handleSort} urls={urls} />

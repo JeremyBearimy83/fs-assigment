@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { v4 } from "uuid";
 
@@ -10,6 +10,10 @@ const useFriends = () => {
     nextUrl: "",
     prevUrl: "",
   });
+
+  useEffect(() => {
+    getFriends();
+  }, [urls.currentUrl]);
 
   const handleNextPage = () => {
     setUrls((prev) => ({ ...prev, currentUrl: prev.nextUrl }));
